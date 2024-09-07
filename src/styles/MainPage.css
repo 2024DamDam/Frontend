@@ -1,0 +1,86 @@
+/* 탑바 */
+.navbar {
+    width: 100%;
+    background-color: #f0f8ff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  .navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .navbar .menu {
+    display: flex;
+  }
+  
+  .navbar .menu-item {
+    color: #333;
+    margin-left: 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .navbar .menu-item.disabled {
+    color: #aaa;
+    cursor: not-allowed;
+  }
+  
+  /* 중앙 버튼 */
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px; /* 탑바와 버튼 사이에 간격을 주기 위해 조정 */
+  }
+  
+  button {
+    padding: 20px 40px;
+    margin: 0 20px;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .choose-button {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .make-button {
+    background-color: #008CBA;
+    color: white;
+  }
+  
+  /* 배경 이미지 */
+  .main-container {
+    text-align: center;
+    background: url('../photo/num1.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    backdrop-filter: blur(5px);
+  }
+  

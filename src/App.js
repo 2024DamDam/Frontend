@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import MainPage from './components/MainPage';
+import ChoosePage from './components/ChoosePage';
+import ChooseCh from './components/ChooseCh';
+import MakePage from './components/MakePage';
+import MakeCh from './components/MakeCh';
+import ChatGPTClone from './components/chat';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainPage />} /> 
+        <Route path="/choose" element={<ChoosePage />} /> 
+        <Route path="/choose-new1" element={<ChooseCh />} /> 
+        <Route path="/make" element={<MakePage />} /> 
+        <Route path="/make-new1" element={<MakeCh />} /> 
+        <Route path="/chat" element={<ChatGPTClone />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
