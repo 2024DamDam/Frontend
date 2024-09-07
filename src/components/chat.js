@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';  // useNavigate 훅 가져오기
+import { useNavigate } from 'react-router-dom'; // useNavigate 훅 가져오기
 import Navbar from './Navbar';
 import Cookies from 'js-cookie';
 import '../styles/ChatGPTClone.css'; // 새로 추가할 CSS 파일
@@ -9,6 +9,7 @@ const ChatGPTClone = () => {
   const [response, setResponse] = useState([]);
   const [recognizing, setRecognizing] = useState(false);
   const [recognition, setRecognition] = useState(null);
+  const audioPlayer = document.getElementById('audio-player');
 
   useEffect(() => {
     if ('webkitSpeechRecognition' in window) {
@@ -34,33 +35,39 @@ const ChatGPTClone = () => {
     }
   }, []);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const csrftoken = Cookies.get('csrftoken');
-
-    const dateTime = new Date();
-    const time = dateTime.toLocaleTimeString();
+    const currentDateTime = new Date();
+    const time = currentDateTime.toLocaleTimeString();
 
     // 사용자가 입력한 질문 추가
     setResponse((prev) => [...prev, { text: prompt, sender: 'user', time }]);
     setPrompt('');
 
-    fetch('/query_view/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrftoken,
-      },
-      body: JSON.stringify({ prompt }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setResponse((prev) => [...prev, { text: data.response, sender: 'bot', time }]);
-        
-        const audioPlayer = document.getElementById('audio-player');
-        const audioData = window.atob(data.audio_data); // base64 디코딩
-        const bytes = new Uint8Array(audioData.length);
+    try {
+      const res = await fetch('http://localhost:8000/query_view/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({ prompt }),
+      });
 
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await res.json();
+
+      // 서버 응답 추가
+      setResponse((prev) => [...prev, { text: data.response, sender: 'bot', time: new Date().toLocaleTimeString() }]);
+
+      // 음성 데이터 처리
+      if (data.audio_data) {
+        const audioData = atob(data.audio_data); // base64 디코딩
+        const bytes = new Uint8Array(audioData.length);
         for (let i = 0; i < audioData.length; i++) {
           bytes[i] = audioData.charCodeAt(i);
         }
@@ -69,16 +76,19 @@ const ChatGPTClone = () => {
         const audioUrl = URL.createObjectURL(audioBlob);
         audioPlayer.src = audioUrl;
         audioPlayer.play();
-      });
+      }
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
   };
 
   const handleVoiceInput = () => {
     if (recognizing) {
       recognition.stop();
-      return;
+    } else {
+      recognition.lang = 'ko-KR';
+      recognition.start();
     }
-    recognition.lang = 'ko-KR';
-    recognition.start();
   };
 
   return (
