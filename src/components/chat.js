@@ -9,7 +9,7 @@ const ChatGPTClone = () => {
   const [response, setResponse] = useState([]);
   const [recognizing, setRecognizing] = useState(false);
   const [recognition, setRecognition] = useState(null);
-  const audioPlayer = document.getElementById('audio-player');
+  const audioPlayer = React.useRef(null); // useRef로 audioPlayer 접근
 
   useEffect(() => {
     if ('webkitSpeechRecognition' in window) {
@@ -65,17 +65,23 @@ const ChatGPTClone = () => {
       setResponse((prev) => [...prev, { text: data.response, sender: 'bot', time: new Date().toLocaleTimeString() }]);
 
       // 음성 데이터 처리
-      if (data.audio_data) {
-        const audioData = atob(data.audio_data); // base64 디코딩
+      if (data.audio_base64) {
+        // base64 디코딩 후 Uint8Array로 변환
+        const audioData = atob(data.audio_base64); // base64 디코딩
         const bytes = new Uint8Array(audioData.length);
         for (let i = 0; i < audioData.length; i++) {
           bytes[i] = audioData.charCodeAt(i);
         }
 
+        // Blob 생성 후 오디오 URL 설정
         const audioBlob = new Blob([bytes], { type: 'audio/mpeg' });
         const audioUrl = URL.createObjectURL(audioBlob);
-        audioPlayer.src = audioUrl;
-        audioPlayer.play();
+
+        // 오디오 플레이어에 설정 및 재생
+        if (audioPlayer.current) {
+          audioPlayer.current.src = audioUrl;
+          audioPlayer.current.play();
+        }
       }
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
@@ -122,7 +128,7 @@ const ChatGPTClone = () => {
           </form>
         </div>
       </div>
-      <audio id="audio-player" controls style={{ display: 'none' }}></audio>
+      <audio ref={audioPlayer} controls style={{ display: 'none' }}></audio> {/* useRef로 audioPlayer 접근 */}
     </div>
   );
 };
