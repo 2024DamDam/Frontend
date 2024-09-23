@@ -14,7 +14,7 @@ const MainPage = () => {
         <Link to="/choose">
           <button className="choose-button">Choose One</button>
         </Link>
-        <Link to="/make">
+        <Link to="/make-new1">
           <button className="make-button">Make One</button>
         </Link>
       </div>
