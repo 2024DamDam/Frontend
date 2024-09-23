@@ -100,6 +100,11 @@ const ChatGPTClone = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const csrftoken = Cookies.get('csrftoken');
+    const currentDateTime = new Date();
+    const time = currentDateTime.toLocaleTimeString();
+
+    setResponse((prev) => [...prev, { text: prompt, sender: 'user', time }]);
+    setPrompt('');
     const voiceId = localStorage.getItem('voice_id');  // localStorage에서 voice_id 가져오기
 
     try {
@@ -145,15 +150,27 @@ const ChatGPTClone = () => {
     }
   };
 
+  // 음성 입력 처리
+  const handleVoiceInput = () => {
+    if (recognizing) {
+      recognition.stop();
+    } else {
+      recognition.lang = 'ko-KR';
+      recognition.start();
+    }
+  };
+
   return (
     <div className="make-container">
       <Navbar />
+      <div className="search-bar"></div>
       <div className="chat-box">
         <div className="messages">
           {response.map((res, index) => (
             <div key={index} className={`message ${res.sender}`}>
               <div className="message-content">
                 <p>{res.text}</p>
+                <span className="message-time">{res.time}</span>
               </div>
             </div>
           ))}
@@ -167,6 +184,9 @@ const ChatGPTClone = () => {
               placeholder="Write your message"
             ></textarea>
             <button type="submit" className="send-button">Send</button>
+            <button type="button" className="voice-button" onClick={handleVoiceInput}>
+              🎤
+            </button>
           </form>
         </div>
       </div>
