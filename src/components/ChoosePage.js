@@ -2,7 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import '../styles/ChoosePage.css';
-import profileImage from '../photo/사진1.jpg';
+import leeChungAh from '../photo/이청아.png';
+import gongHyoJin from '../photo/공효진.png';
+import parkYoungHo from '../photo/박영호.png';
+import limYooJin from '../photo/임유진.png';
+import hwangJungMin from '../photo/황정민.png';
+import parkBoGum from '../photo/박보검.png';
+import loopy from '../photo/루피.png';
 
 const ChoosePage = () => {
   return (
@@ -14,45 +20,45 @@ const ChoosePage = () => {
       </div>
 
       <div className="character-grid">
-        {/* 첫 번째 캐릭터 - 클릭 시 ChooseCh로 이동 */}
+        {/* 첫 번째 캐릭터 - 이청아 */}
         <Link to="/chooseCh" className="character-box">
-          <img src={profileImage} alt="캐릭터 1" />
-          <p>이청아 </p>
+          <img src={leeChungAh} alt="이청아" />
+          <p>이청아</p>
         </Link>
         
-        {/* 두 번째 캐릭터 - 클릭 시 ChooseCh1로 이동 */}
+        {/* 두 번째 캐릭터 - 공효진 */}
         <Link to="/chooseCh1" className="character-box">
-          <img src={profileImage} alt="캐릭터 2" />
+          <img src={gongHyoJin} alt="공효진" />
           <p>공효진</p>
         </Link>
 
-        {/* 세 번째 캐릭터 - 클릭 시 ChooseCh2로 이동 */}
+        {/* 세 번째 캐릭터 - 박영호 */}
         <Link to="/chooseCh2" className="character-box">
-          <img src={profileImage} alt="캐릭터 3" />
-          <p>아바타3</p>
-        </Link>
-
-        {/* 네 번째 캐릭터 - 클릭 시 ChooseCh3로 이동 */}
-        <Link to="/chooseCh3" className="character-box">
-          <img src={profileImage} alt="캐릭터 4" />
-          <p>임유진</p>
-        </Link>
-
-        {/* 다섯 번째 캐릭터 - 클릭 시 ChooseCh4로 이동 */}
-        <Link to="/chooseCh4" className="character-box">
-          <img src={profileImage} alt="캐릭터 5" />
+          <img src={parkYoungHo} alt="박영호" />
           <p>박영호</p>
         </Link>
 
-        {/* 여섯 번째 캐릭터 - 클릭 시 ChooseCh5로 이동 */}
+        {/* 네 번째 캐릭터 - 임유진 */}
+        <Link to="/chooseCh3" className="character-box">
+          <img src={limYooJin} alt="임유진" />
+          <p>임유진</p>
+        </Link>
+
+        {/* 다섯 번째 캐릭터 - 황정민 */}
+        <Link to="/chooseCh4" className="character-box">
+          <img src={hwangJungMin} alt="황정민" />
+          <p>황정민</p>
+        </Link>
+
+        {/* 여섯 번째 캐릭터 - 박보검 */}
         <Link to="/chooseCh5" className="character-box">
-          <img src={profileImage} alt="캐릭터 6" />
+          <img src={parkBoGum} alt="박보검" />
           <p>박보검</p>
         </Link>
 
-        {/* 일곱 번째 캐릭터 - 클릭 시 ChooseCh5로 이동 */}
-        <Link to="/chooseCh5" className="character-box">
-          <img src={profileImage} alt="캐릭터 6" />
+        {/* 일곱 번째 캐릭터 - 루피 */}
+        <Link to="/chooseCh6" className="character-box">
+          <img src={loopy} alt="루피" />
           <p>루피</p>
         </Link>
 

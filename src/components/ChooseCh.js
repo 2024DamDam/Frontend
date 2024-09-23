@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';  // useNavigate 훅 가져오기
 import Navbar from './Navbar';
 import '../styles/ChooseCh.css';
-import profileImage from '../photo/사진1.jpg';
+import profileImage from '../photo/이청아.png';
 
 const ChooseCh = () => {
   const navigate = useNavigate();  // useNavigate 훅 초기화

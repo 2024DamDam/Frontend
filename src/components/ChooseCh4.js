@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import '../styles/ChooseCh.css';
-import profileImage from '../photo/황정민.jpg'; // 황정민 프로필 사진
+import profileImage from '../photo/황정민.png'; // 황정민 프로필 사진
 
 const ChooseCh4 = () => {
   const navigate = useNavigate();

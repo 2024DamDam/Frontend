@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import '../styles/ChooseCh.css';
-import profileImage from '../photo/박보검.jpg'; // 박보검 프로필 사진
+import profileImage from '../photo/박보검.png'; // 박보검 프로필 사진
 
 const ChooseCh5 = () => {
   const navigate = useNavigate();
