@@ -1,9 +1,11 @@
 import React from 'react';
+import Navbar from './Navbar';
 import '../styles/About.css'; // About 페이지에 대한 CSS 파일
 
 const About = () => {
   return (
     <div className="about-container">
+      <Navbar />
       <div className="about-content">
         <h1>프로젝트 담담 소개</h1>
         <p>
@@ -23,10 +25,6 @@ const About = () => {
         </p>
       </div>
       {/* 사진 삽입을 위한 섹션 */}
-      <div className="about-images">
-        <img src="path_to_your_image1.png" alt="Chatbot Example" />
-        <img src="path_to_your_image2.png" alt="User Chatbot Creation" />
-      </div>
     </div>
   );
 }
