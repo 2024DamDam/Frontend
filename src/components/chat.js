@@ -6,10 +6,10 @@ import '../styles/ChatGPTClone.css'; // 새로 추가할 CSS 파일
 const ChatGPTClone = () => {
   const [prompt, setPrompt] = useState('');
   const [response, setResponse] = useState([]);
-  const [fileContent, setFileContent] = useState(''); // 파일 내용 저장
+  const [fileContent, setFileContent] = useState('');
   const [recognizing, setRecognizing] = useState(false);
   const [recognition, setRecognition] = useState(null);
-  const audioPlayer = React.useRef(null); // useRef로 audioPlayer 접근
+  const audioPlayer = React.useRef(null);
 
   // 음성 인식 초기화
   useEffect(() => {
@@ -41,19 +41,17 @@ const ChatGPTClone = () => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = (e) => {
-      setFileContent(e.target.result); // 파일 내용을 상태에 저장
+      setFileContent(e.target.result);
     };
-    reader.readAsText(file); // 텍스트 파일 읽기
+    reader.readAsText(file);
   };
 
   // 파일 전송 처리
   const handleFileSend = async () => {
     const csrftoken = Cookies.get('csrftoken');
-    const currentDateTime = new Date();
-    const time = currentDateTime.toLocaleTimeString();
+    const voiceId = localStorage.getItem('voice_id');  // localStorage에서 voice_id 가져오기
 
     try {
-      // 파일 내용이 있는지 확인 후 파일 전송
       if (fileContent) {
         const res = await fetch('http://localhost:8000/query_view/', {
           method: 'POST',
@@ -61,7 +59,10 @@ const ChatGPTClone = () => {
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
           },
-          body: JSON.stringify({ prompt: '안녕' }), // "안녕" 메시지를 ChatGPT로 전송
+          body: JSON.stringify({
+            prompt: '안녕',  // 예시 프롬프트
+            voice_id: voiceId  // voice_id 전송
+          }),
         });
 
         if (!res.ok) {
@@ -69,16 +70,13 @@ const ChatGPTClone = () => {
         }
 
         const data = await res.json();
-
-        // 파일이 성공적으로 전송되었음을 알림
         setResponse((prev) => [
           ...prev,
-          { text: data.response || '안녕! 파일 잘 받았어!', sender: 'bot', time },
+          { text: data.response || '안녕! 파일 잘 받았어!', sender: 'bot' },
         ]);
 
-        // 음성 데이터 처리
         if (data.audio_base64) {
-          const audioData = atob(data.audio_base64); // base64 디코딩
+          const audioData = atob(data.audio_base64);
           const bytes = new Uint8Array(audioData.length);
           for (let i = 0; i < audioData.length; i++) {
             bytes[i] = audioData.charCodeAt(i);
@@ -102,11 +100,7 @@ const ChatGPTClone = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const csrftoken = Cookies.get('csrftoken');
-    const currentDateTime = new Date();
-    const time = currentDateTime.toLocaleTimeString();
-
-    setResponse((prev) => [...prev, { text: prompt, sender: 'user', time }]);
-    setPrompt('');
+    const voiceId = localStorage.getItem('voice_id');  // localStorage에서 voice_id 가져오기
 
     try {
       const res = await fetch('http://localhost:8000/query_view/', {
@@ -115,7 +109,10 @@ const ChatGPTClone = () => {
           'Content-Type': 'application/json',
           'X-CSRFToken': csrftoken,
         },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({
+          prompt: prompt,
+          voice_id: voiceId  // voice_id 전송
+        }),
       });
 
       if (!res.ok) {
@@ -123,16 +120,13 @@ const ChatGPTClone = () => {
       }
 
       const data = await res.json();
-
-      // 서버 응답 추가
       setResponse((prev) => [
         ...prev,
-        { text: data.response, sender: 'bot', time: new Date().toLocaleTimeString() },
+        { text: data.response, sender: 'bot' },
       ]);
 
-      // 음성 데이터 처리
       if (data.audio_base64) {
-        const audioData = atob(data.audio_base64); // base64 디코딩
+        const audioData = atob(data.audio_base64);
         const bytes = new Uint8Array(audioData.length);
         for (let i = 0; i < audioData.length; i++) {
           bytes[i] = audioData.charCodeAt(i);
@@ -151,28 +145,15 @@ const ChatGPTClone = () => {
     }
   };
 
-  // 음성 입력 처리
-  const handleVoiceInput = () => {
-    if (recognizing) {
-      recognition.stop();
-    } else {
-      recognition.lang = 'ko-KR';
-      recognition.start();
-    }
-  };
-
   return (
     <div className="make-container">
-      <Navbar /> {/* 네비게이션 바 */}
-      <div className="search-bar"></div>
-
+      <Navbar />
       <div className="chat-box">
         <div className="messages">
           {response.map((res, index) => (
             <div key={index} className={`message ${res.sender}`}>
               <div className="message-content">
                 <p>{res.text}</p>
-                <span className="message-time">{res.time}</span>
               </div>
             </div>
           ))}
@@ -186,13 +167,10 @@ const ChatGPTClone = () => {
               placeholder="Write your message"
             ></textarea>
             <button type="submit" className="send-button">Send</button>
-            <button type="button" className="voice-button" onClick={handleVoiceInput}>
-              🎤
-            </button>
           </form>
         </div>
       </div>
-      <audio ref={audioPlayer} controls style={{ display: 'none' }}></audio> {/* useRef로 audioPlayer 접근 */}
+      <audio ref={audioPlayer} controls style={{ display: 'none' }}></audio>
     </div>
   );
 };
