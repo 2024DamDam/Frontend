@@ -167,11 +167,6 @@ const ChatGPTClone = () => {
       <div className="search-bar"></div>
 
       <div className="chat-box">
-        <div className="file-upload">
-          <label htmlFor="file-upload" className="file-label">파일 업로드:</label>
-          <input type="file" id="file-upload" onChange={handleFileChange} />
-          <button onClick={handleFileSend} style={{ padding: '5px 10px' }}>파일 전송</button> {/* 파일 전송 버튼 */}
-        </div>
         <div className="messages">
           {response.map((res, index) => (
             <div key={index} className={`message ${res.sender}`}>
