@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
-import { useLocation } from 'react-router-dom';  // URL 파라미터를 받아오기 위해 사용
+import { useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import '../styles/ChatGPTClone.css';  // 필요한 스타일 파일
+import '../styles/ChatGPTClone.css'; 
 
 const Chat1 = () => {
   const [prompt, setPrompt] = useState('');
@@ -55,53 +55,52 @@ const Chat1 = () => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = (e) => {
-      setFileContent(e.target.result);
+      setFileContent(e.target.result); // 파일 내용을 상태에 저장
+      handleFileSend(e.target.result); // 파일 내용을 서버로 전송
     };
     reader.readAsText(file);
   };
 
   // 파일 전송 처리
-  const handleFileSend = async () => {
+  const handleFileSend = async (content) => {
     const csrftoken = Cookies.get('csrftoken');
 
     try {
-      if (fileContent) {
-        const res = await fetch('http://localhost:8000/query_view/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-          },
-          body: JSON.stringify({
-            prompt: '안녕',  // 예시 프롬프트
-            voice_id: voiceId  // voice_id 전송
-          }),
-        });
+      const res = await fetch('http://localhost:8000/query_view/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({
+          prompt: content,  // 파일 내용 전송
+          voice_id: voiceId  // voice_id 전송
+        }),
+      });
 
-        if (!res.ok) {
-          throw new Error('Network response was not ok');
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await res.json();
+      setResponse((prev) => [
+        ...prev,
+        { text: data.response || '안녕! 파일 잘 받았어!', sender: 'bot' },
+      ]);
+
+      if (data.audio_base64) {
+        const audioData = atob(data.audio_base64);
+        const bytes = new Uint8Array(audioData.length);
+        for (let i = 0; i < audioData.length; i++) {
+          bytes[i] = audioData.charCodeAt(i);
         }
 
-        const data = await res.json();
-        setResponse((prev) => [
-          ...prev,
-          { text: data.response || '안녕! 파일 잘 받았어!', sender: 'bot' },
-        ]);
+        const audioBlob = new Blob([bytes], { type: 'audio/mpeg' });
+        const audioUrl = URL.createObjectURL(audioBlob);
 
-        if (data.audio_base64) {
-          const audioData = atob(data.audio_base64);
-          const bytes = new Uint8Array(audioData.length);
-          for (let i = 0; i < audioData.length; i++) {
-            bytes[i] = audioData.charCodeAt(i);
-          }
-
-          const audioBlob = new Blob([bytes], { type: 'audio/mpeg' });
-          const audioUrl = URL.createObjectURL(audioBlob);
-
-          if (audioPlayer.current) {
-            audioPlayer.current.src = audioUrl;
-            audioPlayer.current.play();
-          }
+        if (audioPlayer.current) {
+          audioPlayer.current.src = audioUrl;
+          audioPlayer.current.play();
         }
       }
     } catch (error) {
@@ -128,7 +127,7 @@ const Chat1 = () => {
         },
         body: JSON.stringify({
           prompt: prompt,
-          voice_id: voiceId  // voice_id 전송
+          voice_id: voiceId
         }),
       });
 
@@ -199,6 +198,17 @@ const Chat1 = () => {
             <button type="button" className="voice-button" onClick={handleVoiceInput}>
               🎤
             </button>
+            {/* 파일 업로드 아이콘과 파일 선택 처리 */}
+            <label htmlFor="file-upload" className="file-button">
+              📄
+            </label>
+            <input
+              id="file-upload"
+              type="file"
+              accept=".txt"
+              style={{ display: 'none' }}
+              onChange={handleFileChange}
+            />
           </form>
         </div>
       </div>
