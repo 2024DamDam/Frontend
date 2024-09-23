@@ -2,7 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import '../styles/ChoosePage.css';
-import profileImage from '../photo/사진1.jpg';
+import leeChungAh from '../photo/이청아.png';
+import gongHyoJin from '../photo/공효진.png';
+import parkYoungHo from '../photo/박영호.png';
+import limYooJin from '../photo/임유진.png';
+import hwangJungMin from '../photo/황정민.png';
+import parkBoGum from '../photo/박보검.png';
+import loopy from '../photo/루피.png';
 
 const ChoosePage = () => {
   return (
@@ -14,41 +20,49 @@ const ChoosePage = () => {
       </div>
 
       <div className="character-grid">
-        {/* 첫 번째 캐릭터 - 클릭 시 ChooseCh로 이동 */}
-        <Link to="/choose-new1" className="character-box">
-          <img src={profileImage} alt="캐릭터 1" />
-          <p>아바타1</p>
+        {/* 첫 번째 캐릭터 - 이청아 */}
+        <Link to="/chooseCh" className="character-box">
+          <img src={leeChungAh} alt="이청아" />
+          <p>이청아</p>
         </Link>
         
-        {/* 두 번째 캐릭터 - 비활성화 */}
-        <div className="character-box disabled">
-          <img src="character2.png" alt="캐릭터 2" />
-          <p>아바타2</p>
-        </div>
-        
-        {/* 세 번째 캐릭터 - 새로 만들기 활성화 */}
-        <div className="character-box">
-          <Link to="/make-new1" className="add-character">
-            <div className="plus-sign">+</div>
-          </Link>
-        </div>
-        
-        {/* 나머지 캐릭터 - 비활성화 */}
-        <div className="character-box disabled">
-          <div className="plus-sign">+</div>
-        </div>
-        <div className="character-box disabled">
-          <div className="plus-sign">+</div>
-        </div>
-        <div className="character-box disabled">
-          <div className="plus-sign">+</div>
-        </div>
-        <div className="character-box disabled">
-          <div className="plus-sign">+</div>
-        </div>
-        <div className="character-box disabled">
-          <div className="plus-sign">+</div>
-        </div>
+        {/* 두 번째 캐릭터 - 공효진 */}
+        <Link to="/chooseCh1" className="character-box">
+          <img src={gongHyoJin} alt="공효진" />
+          <p>공효진</p>
+        </Link>
+
+        {/* 세 번째 캐릭터 - 박영호 */}
+        <Link to="/chooseCh2" className="character-box">
+          <img src={parkYoungHo} alt="박영호" />
+          <p>박영호</p>
+        </Link>
+
+        {/* 네 번째 캐릭터 - 임유진 */}
+        <Link to="/chooseCh3" className="character-box">
+          <img src={limYooJin} alt="임유진" />
+          <p>임유진</p>
+        </Link>
+
+        {/* 다섯 번째 캐릭터 - 황정민 */}
+        <Link to="/chooseCh4" className="character-box">
+          <img src={hwangJungMin} alt="황정민" />
+          <p>황정민</p>
+        </Link>
+
+        {/* 여섯 번째 캐릭터 - 박보검 */}
+        <Link to="/chooseCh5" className="character-box">
+          <img src={parkBoGum} alt="박보검" />
+          <p>박보검</p>
+        </Link>
+
+        {/* 일곱 번째 캐릭터 - 루피 */}
+        <Link to="/chooseCh6" className="character-box">
+          <img src={loopy} alt="루피" />
+          <p>루피</p>
+        </Link>
+
+        <div className="empty-box"></div>
       </div>
     </div>
   );
