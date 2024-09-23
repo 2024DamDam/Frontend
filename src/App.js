@@ -12,12 +12,14 @@ import ChooseCh6 from './components/ChooseCh6';
 import MakePage from './components/MakePage';
 import MakeCh from './components/MakeCh';
 import ChatGPTClone from './components/chat';
+import About from './components/About';
 
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<MainPage />} /> 
+        <Route path="/about" element={<About />} /> 
         <Route path="/choose" element={<ChoosePage />} /> 
         {/* 각 캐릭터에 맞는 컴포넌트로 이동 */}
         <Route path="/chooseCh" element={<ChooseCh />} /> 

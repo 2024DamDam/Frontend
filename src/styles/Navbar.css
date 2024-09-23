@@ -1,38 +1,51 @@
-/* Navbar.css */
+
 .navbar {
-    width: 100%;
-    background-color: #f0f8ff;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-  }
-  
-  .navbar .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .navbar .menu {
-    display: flex;
-  }
-  
-  .navbar .menu-item {
+  width: 100%;
+  background-color: #ffffff !important; /* 흰색 배경으로 강제 설정 */
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.navbar .logo {
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+}
+
+.navbar .logo-text {
+  font-size: 1.5rem; /* 텍스트 크기 */
+  font-weight: bold; 
+  color: #7695f7; /* 원하는 색상 코드로 변경, 여기서는 빨간색 */
+  text-decoration: none;
+  margin-left: 15px
+}
+
+
+.navbar .logo img {
+    height: 50px; /* Adjust the height based on your design */
+}
+
+.navbar .menu {
+  display: flex;
+  justify-content: flex-end; 
+  margin-right: 30px; 
+}
+
+.navbar .menu-item {
     color: #333;
     margin-left: 20px;
     font-size: 1.2rem;
     cursor: pointer;
     text-decoration: none;
-  }
-  
-  .navbar .menu-item.disabled {
+}
+
+.navbar .menu-item.disabled {
     color: #aaa;
     cursor: not-allowed;
-  }
-  
+}
