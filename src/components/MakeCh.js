@@ -61,7 +61,7 @@ const MakeCh = () => {
             onClick={handleGoToFileUpload}
             style={{ cursor: 'pointer' }}
           >
-            대화 파일 업로드 하러 가기
+            음성 파일 업로드 하러 가기
           </label>
         </div>
       </div>
