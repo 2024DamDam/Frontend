@@ -11,6 +11,7 @@ import ChooseCh5 from './components/ChooseCh5';
 import ChooseCh6 from './components/ChooseCh6';
 import MakeCh from './components/MakeCh';
 import ChatGPTClone from './components/chat';
+import Chat1 from './components/chat1';
 import About from './components/About';
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/chooseCh6" element={<ChooseCh6 />} />
         <Route path="/make-new1" element={<MakeCh />} /> 
         <Route path="/chat" element={<ChatGPTClone />} />
+        <Route path="/chat1" element={<Chat1 />} />
       </Routes>
     </Router>
   );
