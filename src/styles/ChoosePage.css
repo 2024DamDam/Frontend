@@ -1,7 +1,7 @@
 .make-container {
-    text-align: center;
-    padding: 20px;
-  }
+  margin-top: 30px; /* 상단에 30px 간격 추가 */
+  padding: 20px;
+}
   
   .navbar {
     width: 100%;

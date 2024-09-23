@@ -8,10 +8,6 @@ const MakePage = () => {
   return (
     <div className="make-container">
       <Navbar /> {/* 툴바 컴포넌트 사용 */}
-      <div className="search-bar">
-        <input type="text" placeholder="Search..." />
-        <button type="submit">🔍</button>
-      </div>
 
       <div className="character-grid">
         {/* 첫 번째 캐릭터 - 비활성화 */}
