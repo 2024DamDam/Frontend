@@ -6,9 +6,11 @@ import profileImage from '../photo/박보검.png'; // 박보검 프로필 사진
 
 const sendCharacterChoice = () => {
   const voiceId = "6G2q0bCZZiM3WmPMHNXM";  
+  const profileImageUrl = profileImage;  // 프로필 사진 URL
 
-  // voice_id를 localStorage에 저장
+  // voice_id와 profileImageUrl를 localStorage에 저장
   localStorage.setItem('voice_id', voiceId);
+  localStorage.setItem('profile_image', profileImageUrl);
 };
 
 const ChooseCh5 = () => {

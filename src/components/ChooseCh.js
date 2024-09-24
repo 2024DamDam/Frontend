@@ -7,9 +7,11 @@ import profileImage from '../photo/이청아.png';
 // 이청아의 voice_id를 저장하는 함수
 const sendCharacterChoice = () => {
   const voiceId = "joLgZXc94fcRJftAz3yT";  // 이청아의 voice_id
+  const profileImageUrl = profileImage;  // 프로필 사진 URL
 
-  // voice_id를 localStorage에 저장
+  // voice_id와 profileImageUrl를 localStorage에 저장
   localStorage.setItem('voice_id', voiceId);
+  localStorage.setItem('profile_image', profileImageUrl);
 };
 
 const ChooseCh = () => {

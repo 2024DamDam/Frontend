@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Cookies from 'js-cookie';
+import profileImageUser from '../photo/user.png';  // 사용자 프로필 이미지
 import '../styles/ChatGPTClone.css'; // 새로 추가할 CSS 파일
 
 const ChatGPTClone = () => {
@@ -10,6 +11,8 @@ const ChatGPTClone = () => {
   const [recognizing, setRecognizing] = useState(false);
   const [recognition, setRecognition] = useState(null);
   const audioPlayer = React.useRef(null);
+
+  const savedProfileImage = localStorage.getItem('profile_image') || '../photo/default.png'; 
 
   // 음성 인식 초기화
   useEffect(() => {
@@ -161,17 +164,22 @@ const ChatGPTClone = () => {
   };
 
   return (
-    <div className="make-container">
+    <div className="chat-container">
       <Navbar />
-      <div className="search-bar"></div>
       <div className="chat-box">
         <div className="messages">
           {response.map((res, index) => (
             <div key={index} className={`message ${res.sender}`}>
+              {res.sender === 'bot' && (
+                <img src={savedProfileImage} alt="Bot" className="profile-image" />
+              )}
               <div className="message-content">
                 <p>{res.text}</p>
                 <span className="message-time">{res.time}</span>
               </div>
+              {res.sender === 'user' && (
+                <img src={profileImageUser} alt="User" className="profile-image" />
+              )}
             </div>
           ))}
         </div>

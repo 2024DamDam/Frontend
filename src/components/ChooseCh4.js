@@ -4,18 +4,21 @@ import Navbar from './Navbar';
 import '../styles/ChooseCh.css';
 import profileImage from '../photo/황정민.png'; // 황정민 프로필 사진
 
+//gka
 const sendCharacterChoice = () => {
   const voiceId = "xFOh2Yi1fJndlCAOVXsE";  
+  const profileImageUrl = profileImage;  // 프로필 사진 URL
 
-  // voice_id를 localStorage에 저장
+  // voice_id와 profileImageUrl를 localStorage에 저장
   localStorage.setItem('voice_id', voiceId);
+  localStorage.setItem('profile_image', profileImageUrl);
 };
 
 const ChooseCh4 = () => {
   const navigate = useNavigate();
 
   const handleCharacterClick = () => {
-    // voice_id를 저장한 후 chat 페이지로 이동
+    // voice_id와 프로필 사진을 저장한 후 chat 페이지로 이동
     sendCharacterChoice();
     navigate('/chat');
   };
@@ -31,7 +34,7 @@ const ChooseCh4 = () => {
             <img src={profileImage} alt="Profile" />
           </div>
           <div className="tags">
-          <span>#배우</span>
+            <span>#배우</span>
             <span>#카리스마</span>
             <span>#다양한배역</span>
           </div>

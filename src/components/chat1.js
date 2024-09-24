@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import { useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import '../styles/ChatGPTClone.css'; 
+import '../styles/Clone1.css';
 
 const Chat1 = () => {
   const [prompt, setPrompt] = useState('');
